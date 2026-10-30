@@ -26,6 +26,19 @@ working audio session and a Vulkan driver for Settings, even when inference
 falls back to the CPU. On non-NixOS hosts, Nix GUI
 applications may require the host's usual Nix graphics integration.
 
+On NixOS, aligning Hex's dependencies with those of your system can improve
+compatibility. To do so, make its `nixpkgs` input follow the one used by your
+NixOS configuration:
+
+```nix
+inputs.hex = {
+  url = "github:anomalyco/hex";
+  inputs.nixpkgs.follows = "nixpkgs";
+};
+```
+
+Use the name of your system's `nixpkgs` input if it differs.
+
 Models are downloaded into your user data directory, not the Nix store.
 Run `hex model install` once, then launch Hex as your normal desktop user.
 Do not run Hex as root.
